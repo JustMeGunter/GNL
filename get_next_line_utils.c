@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:03 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/01 17:10:04 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/02 19:15:30 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ size_t			ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-int			h_end(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (0);
 }
 
 void		ft_bzero(char *s, size_t n)

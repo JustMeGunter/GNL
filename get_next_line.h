@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:50:28 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/01 17:10:01 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/03 19:51:17 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
-# define BUFFER_SIZE 32
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
 int			get_next_line(int fd, char **line);
 size_t      ft_strlen(char *str);
 char		*ft_strjoin(char *str1, char *str2);
-int			h_end(char *str);
-void		ft_bzero(char *s, size_t n);
-char        *ft_substr(char *s, unsigned int start, size_t len);
+char	    *ft_strdup(const char *s);
+char	    *ft_substr(char *s, unsigned int start, size_t len);
 
 #endif

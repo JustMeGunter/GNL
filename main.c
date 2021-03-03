@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:52 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/02/28 21:19:22 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:13:35 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,21 @@ int				main()
 	int			fd;
 	char		*str;
 	int			r;
+	int			i;
 
-	fd = open("file.txt", O_RDONLY);
-	r = get_next_line(fd, &str);
-	printf("\nendout1=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nendout2=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nvacia endout3=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nendout4=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nendout5=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nendout6=>%s<\n\n", str);
-	r = get_next_line(fd, &str);
-	printf("\nendout7=>%s<\n\n", str);
+	i = 0;
+	fd = open("lotr.txt", O_RDONLY);
+/* 	get_next_line(fd, &str);
+	printf("%s", str); */
+	while ((r = get_next_line(fd, &str)))
+	{
+		printf("line %i=>%s\n", i + 1, str);
+		//free(str);
+		i++;
+	}
+	printf("r = %i // %s", r, str);
+/* 	if (str)
+		free(str); */
 	//system("leaks a.out");
 	return (0);
 }

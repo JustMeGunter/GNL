@@ -6,56 +6,84 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/01 17:14:15 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:31:00 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int				get_next_line(int fd, char **line)
+int				return_line(char **line, char **stc_str, int fd)
 {
-	static char *sv_str;
-	char		*buff;
-	int			p;
+	int			i;
+	char		*aux_stc;
 
-	if (!(buff = malloc(sizeof(char) * BUFFER_SIZE)))
-		return (0);
-	if (!sv_str)
-		if (!(sv_str = malloc(sizeof(char) * BUFFER_SIZE)))
-			return (0);
-	printf("init =>%s\n", *line);
-	printf("init =>%s\n", sv_str);
-	if (sv_str[0] == '\n')
+	i = 0;
+	while (stc_str[fd][i])
 	{
-		sv_str++;
-		*line[0] = '\0';
-		return (1);
-	}
-	while (read(fd, buff, BUFFER_SIZE))
-	{
-		buff[BUFFER_SIZE] = '\0';
-		printf("read => %s\n", buff);
-		if (sv_str)
+		if (stc_str[fd][i] == '\n')
 		{
-			*line = sv_str;
-			printf("buff sv_str =>%s\n", *line);
-		}
-		if ((p = h_end(buff)))
-		{
-			printf("has buff 1 => %s\n", buff);
-			sv_str = ft_substr(buff, p + 1, BUFFER_SIZE);
-			printf("resto =>%s\n", sv_str);
-			buff = ft_substr(buff, 0, p);
-			printf("has buff 2 => %s\n", buff);
-			*line = ft_strjoin(*line, buff);
-			printf("out =>%s\n", *line);
-			free(buff);
+			*line = ft_substr(stc_str[fd], 0, i);
+			aux_stc = ft_substr(stc_str[fd], i + 1, ft_strlen(stc_str[fd]) - i);
+			free(stc_str[fd]);
+			stc_str[fd] = aux_stc;
 			return (1);
 		}
-		*line = ft_strjoin(*line, buff);
-		printf("=>%s\n", *line);
+		i++;
 	}
-	free(buff);
-	free(sv_str);
+	return (0);
+}
+
+int				get_next_line(int fd, char **line)
+{
+	static char	*stc_str[4096];
+	char		buff[BUFFER_SIZE + 1];
+	//char		*aux_stc;
+	//char		*aux_buff;
+	//int			i;
+	ssize_t		r_read;
+
+	//i = 0;
+	while ((r_read = read(fd, buff, BUFFER_SIZE)))
+	{
+		if (r_read == -1)
+			return (-1);
+		buff[r_read] = '\0';
+		if (stc_str[fd])
+		{
+			stc_str[fd] = ft_strjoin(stc_str[fd], buff);
+/* 			while (stc_str[fd][i])
+			{
+				if (stc_str[fd][i] == '\n')
+				{
+					*line = ft_substr(stc_str[fd], 0, i);
+					aux_stc = ft_substr(stc_str[fd], i + 1, ft_strlen(stc_str[fd]) - i);
+					free(stc_str[fd]);
+					stc_str[fd] = aux_stc;
+					return (1);
+				}
+				i++;
+			} */
+			if(return_line(line, stc_str, fd))
+				return (1);
+		}
+		else
+		{
+			stc_str[fd] = ft_substr(buff, 0, r_read);
+/* 			while (stc_str[fd][i])
+			{
+				if (stc_str[fd][i] == '\n')
+				{
+					*line = ft_substr(stc_str[fd], 0, i);
+					aux_stc = ft_substr(stc_str[fd], i + 1, ft_strlen(stc_str[fd]) - i);
+					free(stc_str[fd]);
+					stc_str[fd] = aux_stc;
+					return (1);
+				}
+				i++;
+			} */
+			if (return_line(line, stc_str, fd))
+				return (1);
+		}
+	}
 	return (0);
 }
