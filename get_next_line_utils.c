@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:03 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/02 19:15:30 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/04 17:44:11 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,21 @@ size_t			ft_strlen(char *str)
 	return (i);
 }
 
-void		ft_bzero(char *s, size_t n)
+char	*ft_strdup( char *s)
 {
 	char	*aux;
+	int		i;
 
-	aux = s;
-	if (n)
-		while (n--)
-			*aux++ = '\0';
+	i = 0;
+	if (!(aux = malloc(ft_strlen(s) * sizeof(char) + 1)))
+		return (0);
+	while (s[i])
+	{
+		aux[i] = s[i];
+		i++;
+	}
+	aux[i] = '\0';
+	return (aux);
 }
 
 char		*ft_strjoin(char *str1, char *str2)
