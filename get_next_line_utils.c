@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:03 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/04 17:44:11 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/04 20:25:00 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,29 @@ char		*ft_strjoin(char *str1, char *str2)
 		nw_str[i++] = str2[j++];
 	nw_str[i] = '\0';
 	return (nw_str);
+}
+
+char	*ft_strrchr(char *s, int c)
+{
+	char	*lst_match;
+	int		i;
+
+	i = 0;
+	while (*s)
+	{
+		if (*s++ == c)
+		{
+			lst_match = (char *)s;
+			i++;
+		}
+		else if (c == '\0' && *s == '\0')
+			return ((char *)s);
+	}
+	if (i == 0 && c == '\0')
+		return ((char *)s);
+	else if (i == 0)
+		return (0);
+	return (lst_match);
 }
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
