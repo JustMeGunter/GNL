@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:50:28 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/04 20:04:10 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:17:19 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ size_t      ft_strlen(char *str);
 char		*ft_strjoin(char *str1, char *str2);
 char	    *ft_strdup(char *s);
 char	    *ft_substr(char *s, unsigned int start, size_t len);
-char	    *ft_strrchr(char *s, int c);
+char	    *ft_strchr(const char *s, int c);
 
 #endif

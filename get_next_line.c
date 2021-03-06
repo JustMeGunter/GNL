@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/04 21:49:03 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/06 13:30:03 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				h_end(char *buff, char **line, char **stc_mem)
 	int			p_end;
 
 	p_end = 0;
-	the_end = ft_strrchr(buff, 10);
+	the_end = ft_strchr(buff, 10);
 	if (the_end)
 	{
 		if (ft_strlen(the_end) < ft_strlen(buff))
@@ -78,6 +78,17 @@ int				get_next_line(int fd, char **line)
 	if (!(buff = malloc(sizeof(char) * BUFFER_SIZE + 1)))
 		return (-1);
 	buff[BUFFER_SIZE] = '\0';
+	if (stc_mem)
+	{
+		if (ft_strchr(stc_mem, 10))
+		{
+			free(buff);
+			buff = ft_strdup(stc_mem);
+			free(stc_mem);
+			*stc_mem = 0;
+			h_end(buff, line, &stc_mem);
+		}
+	}	
 	while (read(fd, buff, BUFFER_SIZE))
 	{
 		if (h_end(buff, line, &stc_mem))
