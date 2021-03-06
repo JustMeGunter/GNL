@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:52 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/04 20:30:42 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/06 17:34:23 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int				main()
 		i++;
 	}
 	printf("%s\n", str);
-	//system("leaks a.out");
+	system("leaks a.out");
 	return (0);
 }

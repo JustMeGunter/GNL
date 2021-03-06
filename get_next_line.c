@@ -6,97 +6,66 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/06 13:30:03 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/06 17:56:55 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void			sv_stcmem(char *buff, char **stc_mem, int p_end)
+int				return_end(char *buff, char **line, char **stc_mem)
 {
-	char		*aux_mem;
-	char		*aux_buff;
-	int			i;
-
-	i = 0;
-	if (stc_mem)
-	{
-		aux_mem = ft_strdup(*stc_mem);
-		free(*stc_mem);
-		*stc_mem = 0;
-		aux_buff = ft_substr(buff, p_end, ft_strlen(buff));
-		*stc_mem = ft_strjoin(aux_mem, aux_buff);
-		free(aux_mem);
-		aux_mem = 0;
-		free(aux_buff);
-		aux_buff = 0;
-	}
-	else
-		*stc_mem = ft_strdup(buff);		
-}
-
-int				h_end(char *buff, char **line, char **stc_mem)
-{
-	char		*the_end;
 	int			p_end;
+	char		*aux;
 
 	p_end = 0;
-	the_end = ft_strchr(buff, 10);
-	if (the_end)
+	aux = ft_strchr(buff, 10);
+	if (aux)
+		p_end = ft_strlen(buff) - ft_strlen(aux);
+	if (*stc_mem)
 	{
-		if (ft_strlen(the_end) < ft_strlen(buff))
-			p_end = ft_strlen(buff) - ft_strlen(the_end) - 1;
-		else
-			p_end = 0;
-		if (*stc_mem)
-		{
-			*line = ft_strjoin(*stc_mem, ft_substr(buff, 0, p_end));
-			if (p_end)
-				*stc_mem = ft_strdup(the_end);
-			return (1);
-		}
-		else
-		{
-			*line = ft_substr(buff, 0, p_end);
-			if (p_end)
-				*stc_mem = ft_strdup(the_end);
-			return (1);
-		}
+		buff = ft_substr(buff, 0, p_end);
+		*line = ft_strjoin(*stc_mem, buff);
 	}
 	else
-		sv_stcmem(buff, stc_mem, p_end);
-	return (0);
+	{
+		buff = ft_substr(buff, 0, p_end);
+		*line = ft_strdup(buff);
+	}
+	*stc_mem = ft_strdup(aux);
+	free(buff);
+	buff = 0;
+	return (1);
 }
 
 int				get_next_line(int fd, char **line)
 {
 	static char	*stc_mem;
 	char		*buff;
+	ssize_t		sz_read;
 
 	if (line == NULL || fd == -1 || BUFFER_SIZE < 1)
 		return (-1);
+	if (stc_mem && ft_strchr(stc_mem, 10))
+	{
+		buff = ft_strdup(stc_mem);
+		free (stc_mem);
+		stc_mem = 0;
+		return_end(buff, line, &stc_mem);
+		return (1);
+	}
 	if (!(buff = malloc(sizeof(char) * BUFFER_SIZE + 1)))
 		return (-1);
-	buff[BUFFER_SIZE] = '\0';
-	if (stc_mem)
+	sz_read = read(fd, buff, BUFFER_SIZE);
+	buff[sz_read] = '\0';
+	while (sz_read && !ft_strchr(buff, 10))
 	{
-		if (ft_strchr(stc_mem, 10))
-		{
-			free(buff);
-			buff = ft_strdup(stc_mem);
-			free(stc_mem);
-			*stc_mem = 0;
-			h_end(buff, line, &stc_mem);
-		}
-	}	
-	while (read(fd, buff, BUFFER_SIZE))
-	{
-		if (h_end(buff, line, &stc_mem))
-		{
-			free(buff);
-			buff = 0;
-			return (1);
-		}
+		if (stc_mem)
+			stc_mem = ft_strjoin(stc_mem, buff);
+		else
+			stc_mem = ft_strdup(buff);	
+		sz_read = read(fd, buff, BUFFER_SIZE);
 	}
+	if (return_end(buff, line, &stc_mem))
+		return (1);
 	return (0);
 }
