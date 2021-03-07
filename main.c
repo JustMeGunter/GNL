@@ -30,6 +30,7 @@ int				main()
 		i++;
 	}
 	printf("%s", str);
-	system("leaks a.out");
+	free(str);
+	//system("leaks a.out");
 	return (0);
 }
