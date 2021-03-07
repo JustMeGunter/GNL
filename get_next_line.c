@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 16:30:38 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:37:44 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ int				get_next_line(int fd, char **line)
 		else
 			stc_mem = ft_strdup(buff);	
 		sz_read = read(fd, buff, BUFFER_SIZE);
+		buff[sz_read] = '\0';
 	}
-	if (sz_read > 0 && return_end(buff, line, &stc_mem))
+	if (return_end(buff, line, &stc_mem) && sz_read > 0)
 		return (1);
-	if (sz_read == 0 && return_end(buff, line, &stc_mem))
+	if (return_end(buff, line, &stc_mem) && sz_read == 0)
 		return (0);
 	return (0);
 }
