@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 16:37:44 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:57:32 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 int				return_end(char *buff, char **line, char **stc_mem)
 {
 	int			p_end;
-	char		*aux;
-
+	char		*remaind;
+	char		*aux_buff;
 	p_end = 0;
-	aux = ft_strchr(buff, '\n');
-	if (aux)
-		p_end = ft_strlen(buff) - ft_strlen(aux);
+	remaind = ft_strchr(buff, '\n');
+	if (remaind)
+		p_end = ft_strlen(buff) - ft_strlen(remaind);
+	aux_buff = ft_substr(buff, 0, p_end - 1);
+	free(buff);
+	buff = aux_buff;
 	if (*stc_mem)
 	{
-		buff = ft_substr(buff, 0, p_end - 1);
 		*line = ft_strjoin(*stc_mem, buff);
+		free(*stc_mem);
+		*stc_mem = 0;
 	}
 	else
-	{
-		buff = ft_substr(buff, 0, p_end - 1);
 		*line = ft_strdup(buff);
-	}
-	if (aux)
-		*stc_mem = ft_strdup(aux);
+	if (remaind)
+		*stc_mem = ft_strdup(remaind);
 	free(buff);
 	buff = 0;
 	return (1);
@@ -40,8 +41,9 @@ int				return_end(char *buff, char **line, char **stc_mem)
 
 int				get_next_line(int fd, char **line)
 {
-	static char	*stc_mem;
+	static char	*stc_mem = 0;
 	char		*buff;
+	char		*aux_buff;
 	ssize_t		sz_read;
 
 	if (line == NULL || fd == -1 || BUFFER_SIZE < 1)
@@ -51,8 +53,7 @@ int				get_next_line(int fd, char **line)
 		buff = ft_strdup(stc_mem);
 		free (stc_mem);
 		stc_mem = 0;
-		return_end(buff, line, &stc_mem);
-		return (1);
+		return (return_end(buff, line, &stc_mem));
 	}
 	if (!(buff = malloc(sizeof(char) * BUFFER_SIZE + 1)))
 		return (-1);
@@ -61,15 +62,15 @@ int				get_next_line(int fd, char **line)
 	while (sz_read && !ft_strchr(buff, '\n'))
 	{
 		if (stc_mem)
-			stc_mem = ft_strjoin(stc_mem, buff);
+		{
+			aux_buff = ft_strjoin(stc_mem, buff);
+			free(stc_mem);
+			stc_mem = aux_buff;
+		}
 		else
 			stc_mem = ft_strdup(buff);	
 		sz_read = read(fd, buff, BUFFER_SIZE);
 		buff[sz_read] = '\0';
 	}
-	if (return_end(buff, line, &stc_mem) && sz_read > 0)
-		return (1);
-	if (return_end(buff, line, &stc_mem) && sz_read == 0)
-		return (0);
-	return (0);
+	return (return_end(buff, line, &stc_mem) && sz_read > 0);
 }
