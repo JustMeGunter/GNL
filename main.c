@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:52 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 16:28:49 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:31:28 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				main()
 	int			i;
 
 	i = 0;
-	fd = open("file.txt", O_RDONLY);
+	fd = open("lotr.txt", O_RDONLY);
 /* 	get_next_line(fd, &str);
 	printf("%s", str); */
 	while ((r = get_next_line(fd, &str)))
