@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:52 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/06 17:34:23 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 16:28:49 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int				main()
 	printf("%s", str); */
 	while ((r = get_next_line(fd, &str)))
 	{
-		printf("line %i=>%s\n", i + 1, str);
+		printf("line %i=>%s<\n", i + 1, str);
 		free(str);
 		i++;
 	}
 	printf("%s\n", str);
-	system("leaks a.out");
+	//system("leaks a.out");
 	return (0);
 }
