@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 16:57:32 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 18:09:46 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 int				return_end(char *buff, char **line, char **stc_mem)
 {
 	int			p_end;
-	char		*remaind;
+	char		*reminder;
 	char		*aux_buff;
-	p_end = 0;
-	remaind = ft_strchr(buff, '\n');
-	if (remaind)
-		p_end = ft_strlen(buff) - ft_strlen(remaind);
+
+	p_end = 1;
+	reminder = ft_strdup(ft_strchr(buff, '\n'));
+	if (reminder)
+		p_end = ft_strlen(buff) - ft_strlen(reminder);
 	aux_buff = ft_substr(buff, 0, p_end - 1);
-	free(buff);
+	free(buff); //here
 	buff = aux_buff;
 	if (*stc_mem)
 	{
@@ -32,9 +33,10 @@ int				return_end(char *buff, char **line, char **stc_mem)
 	}
 	else
 		*line = ft_strdup(buff);
-	if (remaind)
-		*stc_mem = ft_strdup(remaind);
+	if (reminder)
+		*stc_mem = ft_strdup(reminder);
 	free(buff);
+	free(reminder);
 	buff = 0;
 	return (1);
 }

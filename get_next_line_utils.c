@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:03 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/06 17:34:23 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:53:00 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strdup( char *s)
 	int		i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	if (!(aux = malloc(ft_strlen(s) * sizeof(char) + 1)))
 		return (0);
 	while (s[i])

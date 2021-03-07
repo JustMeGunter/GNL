@@ -6,7 +6,7 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:50:28 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 15:38:30 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/03/07 17:21:25 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 9999
 # endif
 
 int			get_next_line(int fd, char **line);
