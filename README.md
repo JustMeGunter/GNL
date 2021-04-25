@@ -26,4 +26,4 @@ int	main()
 
 You may compile this with `gcc main.c get_next_line.c get_next_line_utils.c -o gnl`, and run `./gnl`.
 
-_ If you want to use multiples fd compile with bonus files _
+*If you want to use multiples fd compile with bonus files*
