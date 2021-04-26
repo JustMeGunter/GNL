@@ -4,7 +4,7 @@ This is a function to read lines from a file descriptor(s).
 
 ## DEPENDENCIES
 
-C compiler.
+- C compiler.
 
 ## USE
 
