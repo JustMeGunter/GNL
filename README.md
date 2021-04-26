@@ -1,6 +1,10 @@
-#GET NEXT LINE
+# GET NEXT LINE
 
 This is a function to read lines from a file descriptor(s).
+
+## DEPENDENCIES
+
+C compiler.
 
 ## USE
 
