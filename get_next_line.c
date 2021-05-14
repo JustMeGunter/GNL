@@ -6,11 +6,11 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:43:12 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/05/13 19:30:12 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/05/14 21:12:14 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	return_end(char *buff, char **line, char **stc_mem, int fd)
 {
@@ -71,11 +71,11 @@ int	get_next_line(int fd, char **line)
 	char		*buff;
 	ssize_t		sz_read;
 
-	if (line == NULL || fd == -1 || BUFFER_SIZE < 1)
+	if (line == NULL || fd < 0 || BUFFER_SIZE < 1)
 		return (-1);
-	if (stcm[fd] && ft_strchr(stcm[fd], '\n')
-		&& save_free(&buff, stcm, fd))
-		return (return_end(buff, line, stcm, fd));
+	if (stcm[fd] && ft_strchr(stcm[fd], '\n'))
+		if (save_free(&buff, stcm, fd))
+			return (return_end(buff, line, stcm, fd));
 	buff = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buff)
 		return (-1);
