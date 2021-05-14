@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line.h	                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:50:28 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/07 19:59:41 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:17:57 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <sys/stat.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <stddef.h>
 # ifndef BUFFER_SIZE

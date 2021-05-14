@@ -6,13 +6,13 @@
 /*   By: acrucesp <acrucesp@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 16:44:03 by acrucesp          #+#    #+#             */
-/*   Updated: 2021/03/09 16:36:11 by acrucesp         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:14:25 by acrucesp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t			ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t		i;
 
@@ -22,7 +22,7 @@ size_t			ft_strlen(char *str)
 	return (i);
 }
 
-char			*ft_strdup(char *s)
+char	*ft_strdup(char *s)
 {
 	char		*aux;
 	int			i;
@@ -30,7 +30,8 @@ char			*ft_strdup(char *s)
 	i = 0;
 	if (!s)
 		return (0);
-	if (!(aux = malloc(ft_strlen(s) * sizeof(char) + 1)))
+	aux = malloc(ft_strlen(s) * sizeof(char) + 1);
+	if (!aux)
 		return (0);
 	while (s[i])
 	{
@@ -41,7 +42,7 @@ char			*ft_strdup(char *s)
 	return (aux);
 }
 
-char			*ft_strjoin(char *str1, char *str2)
+char	*ft_strjoin(char *str1, char *str2)
 {
 	int			i;
 	int			j;
@@ -53,7 +54,8 @@ char			*ft_strjoin(char *str1, char *str2)
 	i = 0;
 	j = 0;
 	len = ft_strlen(str1) + ft_strlen(str2) + 1;
-	if (!(nw_str = malloc(sizeof(char) * len)))
+	nw_str = malloc(sizeof(char) * len);
+	if (!nw_str)
 		return (0);
 	while (len-- && str1[j])
 		nw_str[i++] = str1[j++];
@@ -64,7 +66,7 @@ char			*ft_strjoin(char *str1, char *str2)
 	return (nw_str);
 }
 
-char			*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{
@@ -76,7 +78,7 @@ char			*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char			*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	int			i;
 	char		*aux;
@@ -87,13 +89,15 @@ char			*ft_substr(char *s, unsigned int start, size_t len)
 		return (0);
 	if (start > ft_strlen(s))
 	{
-		if (!(cpstr = malloc(sizeof(char) * 1)))
+		cpstr = malloc(sizeof(char) * 1);
+		if (!cpstr)
 			return (0);
 		*cpstr = '\0';
 		return (cpstr);
 	}
 	aux = (char *)s;
-	if (!(cpstr = malloc(sizeof(char) * len + 1)))
+	cpstr = malloc(sizeof(char) * len + 1);
+	if (!cpstr)
 		return (0);
 	while (s[start] && len--)
 		cpstr[i++] = aux[start++];
